@@ -1,5 +1,6 @@
 #include <iostream>
 #include <list>
+#include <string>
 #include <asio.hpp>
 #include <boost/bind.hpp>
 #include <boost/program_options.hpp>
@@ -9,6 +10,7 @@
 #include <syslog.h>
 
 #include "Server.h"
+#include "Config.h"
 
 namespace po = boost::program_options;
 
@@ -22,6 +24,7 @@ reloadConfig(asio::signal_set* this_)
 int
 main(int argc, char* argv[])
 {
+	std::string config_file;
 	po::options_description desc("Usage");
 	desc.add_options()
 		("help", 	"display command line options")
@@ -29,6 +32,11 @@ main(int argc, char* argv[])
 		("verbose",	po::value<int>(), 	"Set verbosity: 0 = quiet, 10 = firehose;  default = 3")
 		("reboot",	"no idea what this does")
 		("user",	"become the given user")
+		(
+			"config",
+			po::value<std::string>(&config_file)->default_value(""),
+			"Config file"
+		)
 	;
 	po::variables_map args;
 	po::store(po::parse_command_line(argc, argv, desc), args);
@@ -37,6 +45,17 @@ main(int argc, char* argv[])
 	if (args.count("help")) {
 		std::cout << desc << std::endl;
 		return 1;
+	}
+
+	if (config_file.length()) {
+		try {
+			SmartCache::Config::load(config_file);
+			SmartCache::Config::Ptr config = SmartCache::Config::current();
+			config->save("out.ini");
+		} catch( std::exception& e) {
+			std::cerr << e.what() << std::endl;
+			return 1;
+		}
 	}
 
 	asio::io_service io;

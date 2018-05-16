@@ -1,25 +1,24 @@
 #if !defined(_Config_h_)
 #define _Config_h_
 
-#include <boost/property_tree/ptree.hpp>
-#include <boost/property_tree/ini_parser.hpp>
-#include <boost/foreach.hpp>
+#include <memory>
 #include <string>
 #include <set>
-#include <exception>
-#include <iostream>
+#include <chrono>
 
 #include "Auth.h"
 
 namespace SmartCache
 {
 
-namespace pt = boost::property_tree;
-
-class Config
+struct Config 
 {
-public:
-	int daemon;
+	typedef std::shared_ptr<Config> Ptr;
+	static void load(const std::string& filename);
+	static Ptr current();
+	void save(const std::string& filename);
+
+	bool daemon;
 	int pause_mode;
 	int shutdown;	
 	int reboot;
@@ -48,33 +47,33 @@ public:
 	int default_pool_size;
 	int min_pool_size;
 	int res_pool_size;
-	usec_t cf_res_pool_timeout;
+	std::chrono::microseconds cf_res_pool_timeout;
 	int max_db_connectiosn;
 	int max_user_connections;
 	std::string server_reset_query;
 	int server_reset_query_always;
 	std::string server_check_query;
-	usec_t server_check_delay;
+	std::chrono::microseconds server_check_delay;
 	int server_round_robin;
 	int disable_pqexec;
-	usec_t dns_max_ttl;
-	usec_t dns_nxdomain_ttl;
-	usec_t dns_zone_check_period;
+	std::chrono::microseconds dns_max_ttl;
+	std::chrono::microseconds dns_nxdomain_ttl;
+	std::chrono::microseconds dns_zone_check_period;
 	unsigned int max_packet_size;
 	std::string ignore_startup_params;
 	std::string autodb_connstr;
-	usec_t autodb_idle_timeout;
-	usec_t cf_server_lifetime;
-	usec_t cf_server_idle_timeout;
-	usec_t cf_server_connect_timeout;
-	usec_t cf_server_login_retry;
-	usec_t cf_query_timeout;
-	usec_t cf_query_wait_timeout;
-	usec_t cf_client_idle_timeout;
-	usec_t cf_client_login_timeout;
-	usec_t cf_idle_transaction_timeout;
-	usec_t cf_suspend_timeout;
-	usec_t g_suspend_start;
+	std::chrono::microseconds autodb_idle_timeout;
+	std::chrono::microseconds cf_server_lifetime;
+	std::chrono::microseconds cf_server_idle_timeout;
+	std::chrono::microseconds cf_server_connect_timeout;
+	std::chrono::microseconds cf_server_login_retry;
+	std::chrono::microseconds cf_query_timeout;
+	std::chrono::microseconds cf_query_wait_timeout;
+	std::chrono::microseconds cf_client_idle_timeout;
+	std::chrono::microseconds cf_client_login_timeout;
+	std::chrono::microseconds cf_idle_transaction_timeout;
+	std::chrono::microseconds cf_suspend_timeout;
+	std::chrono::microseconds g_suspend_start;
 	char *cf_pidfile;
 	char *cf_jobname;
 	char *cf_admin_users;
@@ -99,8 +98,6 @@ public:
 	char *cf_server_tls_key_file;
 	char *cf_server_tls_ciphers;
 
-
-private:
 };
 
 };

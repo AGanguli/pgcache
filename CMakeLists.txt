@@ -10,5 +10,8 @@ find_package(Threads REQUIRED)
 
 include_directories(${Boost_INCLUDE_DIRS})
 
-add_executable(pgcache src/main.C)
+add_executable(pgcache 
+	src/main.C
+	src/Config.C
+)
 target_link_libraries(pgcache Threads::Threads ${Boost_LIBRARIES})

@@ -1,7 +1,7 @@
 #if !defined(_Auth_h_)
 #define _Auth_h_
 
-namespace CacheServer
+namespace SmartCache
 {
 
 enum AuthType {
