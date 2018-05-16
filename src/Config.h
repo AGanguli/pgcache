@@ -29,7 +29,7 @@ struct Config
 	std::string unix_socket_dir;
 	std::string unix_socket_mode;
 	std::string unix_socket_group;
-
+	Auth::Type auth_type;
 
 	int pool_mode;
 	int sbuf_len;
@@ -39,7 +39,6 @@ struct Config
 	int tcp_keepalive;
 	int tcp_keepidle;
 	int tcp_keepintvl;
-	AuthType auth_type;
 	std::string auth_file;
 	std::string auth_hba_file;
 	std::string auth_user;

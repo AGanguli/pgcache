@@ -30,6 +30,8 @@ Config::load(const std::string& filename)
 	config->unix_socket_dir		= tree.get<std::string>		("unix_socket_dir", "/tmp");
 	config->unix_socket_mode	= tree.get<std::string>		("unix_socket_mode", "0777");
 	config->unix_socket_group	= tree.get<std::string>		("unix_socket_group", "");
+
+	config->auth_type		= Auth::stringToAuthType(tree.get<std::string>         ("auth_type", "md5"));
 	
 	current_ = config;
 }
