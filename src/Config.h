@@ -19,17 +19,18 @@ struct Config
 	void save(const std::string& filename);
 
 	bool daemon;
-	int pause_mode;
-	int shutdown;	
-	int reboot;
-	std::string username;
-	std::string config_file;
+	std::string job_name;
+	std::string logfile;
+	std::string pidfile;
 	std::string listen_addr;
+	std::string username;
 	int listen_port;
 	int listen_backlog;
 	std::string unix_socket_dir;
-	int unix_socket_mode;
+	std::string unix_socket_mode;
 	std::string unix_socket_group;
+
+
 	int pool_mode;
 	int sbuf_len;
 	int sbuf_loopcnt;
@@ -74,8 +75,6 @@ struct Config
 	std::chrono::microseconds cf_idle_transaction_timeout;
 	std::chrono::microseconds cf_suspend_timeout;
 	std::chrono::microseconds g_suspend_start;
-	char *cf_pidfile;
-	char *cf_jobname;
 	char *cf_admin_users;
 	char *cf_stats_users;
 	int cf_stats_period;

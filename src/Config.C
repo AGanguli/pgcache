@@ -18,7 +18,19 @@ Config::load(const std::string& filename)
 	Config::Ptr config(new Config());
 	pt::ptree tree;
 	pt::read_ini(filename, tree);
-	config->daemon = tree.get("daemon", true);
+
+	config->daemon 			= tree.get			("daemon", true);
+	config->job_name		= tree.get<std::string>		("job_name", "smartcache");
+	config->logfile			= tree.get<std::string>		("logfile", "");
+	config->pidfile			= tree.get<std::string>		("pidfile", "");
+	config->username 		= tree.get<std::string>		("username", "");
+	config->listen_addr 		= tree.get<std::string> 	("listen_addr", "");
+	config->listen_port		= tree.get			("listen_port", 6432);
+	config->listen_backlog		= tree.get			("listen_backlog", 128);
+	config->unix_socket_dir		= tree.get<std::string>		("unix_socket_dir", "/tmp");
+	config->unix_socket_mode	= tree.get<std::string>		("unix_socket_mode", "0777");
+	config->unix_socket_group	= tree.get<std::string>		("unix_socket_group", "");
+	
 	current_ = config;
 }
 
