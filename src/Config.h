@@ -7,6 +7,8 @@
 #include <chrono>
 
 #include "Auth.h"
+#include "Pool.h"
+#include "SSL.h"
 
 namespace SmartCache
 {
@@ -30,8 +32,43 @@ struct Config
 	std::string unix_socket_mode;
 	std::string unix_socket_group;
 	Auth::Type auth_type;
+	std::string auth_file;
+	std::string auth_hba_file;
+	std::string auth_user;
+	std::string auth_query;
+	Pool::Mode pool_mode;
+	int max_client_conn;
+	int default_pool_size;
+	int min_pool_size;
+	int reserve_pool_size;
+	std::chrono::milliseconds reserve_pool_timeout;
+	int max_db_connections;
+	int max_user_connections;
+	int syslog;
+	std::string syslog_facility;
+	std::string syslog_ident;
+	std::chrono::milliseconds autodb_idle_timeout;
+	std::string server_reset_query;
+	bool server_reset_query_always;
+	std::string server_check_query;
+	std::chrono::milliseconds server_check_delay;
+	std::chrono::milliseconds query_timeout;
+	std::chrono::milliseconds query_wait_timeout;
+	std::chrono::milliseconds client_idle_timeout;
+	std::chrono::milliseconds client_login_timeout;
+	std::chrono::milliseconds idle_transaction_timeout;
+	std::chrono::milliseconds server_lifetime;
+	std::chrono::milliseconds server_idle_timeout;
+	std::chrono::milliseconds server_connect_timeout;
+	std::chrono::milliseconds server_login_retry;
+	bool server_round_robin;
+	std::chrono::milliseconds suspend_timeout;
+	std::string ignore_startup_parameters;
+	bool disable_pqexec;
+	std::chrono::milliseconds dns_nxdomain_ttl;
+	std::chrono::milliseconds dns_zone_check_period;
+	
 
-	int pool_mode;
 	int sbuf_len;
 	int sbuf_loopcnt;
 	int tcp_socket_buffer;
@@ -39,30 +76,12 @@ struct Config
 	int tcp_keepalive;
 	int tcp_keepidle;
 	int tcp_keepintvl;
-	std::string auth_file;
-	std::string auth_hba_file;
-	std::string auth_user;
-	std::string auth_query;
-	int max_client_conn;
-	int default_pool_size;
-	int min_pool_size;
 	int res_pool_size;
-	std::chrono::microseconds cf_res_pool_timeout;
 	int max_db_connectiosn;
-	int max_user_connections;
-	std::string server_reset_query;
-	int server_reset_query_always;
-	std::string server_check_query;
-	std::chrono::microseconds server_check_delay;
-	int server_round_robin;
-	int disable_pqexec;
 	std::chrono::microseconds dns_max_ttl;
-	std::chrono::microseconds dns_nxdomain_ttl;
-	std::chrono::microseconds dns_zone_check_period;
 	unsigned int max_packet_size;
 	std::string ignore_startup_params;
 	std::string autodb_connstr;
-	std::chrono::microseconds autodb_idle_timeout;
 	std::chrono::microseconds cf_server_lifetime;
 	std::chrono::microseconds cf_server_idle_timeout;
 	std::chrono::microseconds cf_server_connect_timeout;

@@ -15,5 +15,7 @@ add_executable(pgcache
 	src/Global.C
 	src/Config.C
 	src/Auth.C
+	src/Pool.C
+	src/SSL.C
 )
 target_link_libraries(pgcache Threads::Threads ${Boost_LIBRARIES})
